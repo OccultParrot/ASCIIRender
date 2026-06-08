@@ -8,7 +8,7 @@ from PIL import Image
 from rich.align import Align
 from rich.panel import Panel
 
-# --- Args -----
+# Arg stuff
 parser = argparse.ArgumentParser(
     prog="ASCII Renderer",
     description="Takes an image and renders it with text.",
@@ -16,7 +16,6 @@ parser = argparse.ArgumentParser(
 parser.add_argument('filename')
 parser.add_argument('-c', '--color', action="store_true")
 args = parser.parse_args()
-# endregion
 
 path = Path(args.filename)
 if not path.exists():
