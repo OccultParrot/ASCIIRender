@@ -80,12 +80,14 @@ start = time.time()
 
 im = Image.open(path)
 original_size = im.size  # Collecting for later stats
+terminal_width, terminal_height = os.get_terminal_size()
 
-terminal_width, _ = os.get_terminal_size()
-scale = terminal_width / im.size[0]  # Formula for percentage is p = w1 / w2
+CHAR_ASPECT = 0.5
+
+scale = terminal_width / im.width
 
 # Scaling
-new_size = (int(im.width * scale), int(im.height * scale))
+new_size = (int(im.width * scale), int(im.height * scale * CHAR_ASPECT))
 im = im.resize(new_size)
 
 # Final string is used for counting the unique chars at the end
@@ -119,7 +121,8 @@ for y in range(im.height):
 end = time.time()  # End time for stats
 
 info = (
-    f"Original image scale: {original_size}\n"
+    f"Original image size: {original_size}\n"
+    f"Terminal size: {terminal_width}x{terminal_height}\n"
     f"Downscale percentage: {round(scale * 100, 4)}\n"
     f"Final image scale: {new_size}\n"
     f"Unique chars used: {len(set(final_string))}\n"
